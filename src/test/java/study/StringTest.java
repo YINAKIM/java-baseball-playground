@@ -3,6 +3,8 @@ package study;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.nio.charset.StandardCharsets;
+
 import static org.assertj.core.api.Assertions.*;
 
 public class StringTest {
@@ -77,5 +79,26 @@ public class StringTest {
     void charat(){
         String abc = "abc";
         System.out.println(abc.charAt(0));
+    }
+
+    @DisplayName("Exception1 - 위치 값을 벗어나면 StringIndexOutOfBoundsException이 발생")
+    @Test
+    void exception1(){
+        assertThatThrownBy(() -> {
+            // TODO 예외가 발생할 상황에 대한 코드
+            throw new Exception("위치값을 벗어났다");
+        }).isInstanceOf(IndexOutOfBoundsException.class)
+          .hasMessageContaining("Index: 2, Size: 2");
+
+    }
+
+    @DisplayName("Exception에 대해 메서드를 호출")
+    @Test
+    public void exciption2(){
+        assertThatExceptionOfType(IndexOutOfBoundsException.class)
+                .isThrownBy(() -> {
+                    // TODO 예외가 발생할 상황에 대한 코드
+                    throw new Exception("위치값을 벗어났다");
+                }).withMessageMatching("Index: , Size: ");
     }
 }
